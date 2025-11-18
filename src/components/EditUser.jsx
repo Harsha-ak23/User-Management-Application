@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../slices/userSlice";
 
 export default function EditUserModal({ user = {}, isOpen, onClose }) {
+  // form state object
   const [formData, setFormData] = useState({
     name: "",
+    username: "",
     email: "",
     phone: "",
-    address: "",
   });
 
   const dispatch = useDispatch();
@@ -16,10 +17,10 @@ export default function EditUserModal({ user = {}, isOpen, onClose }) {
   useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || "",
-        email: user.email || "",
-        phone: user.phone || "",
-        address: user.address || "",
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        username: user.username,
       });
     }
   }, [user]);
@@ -48,12 +49,9 @@ export default function EditUserModal({ user = {}, isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
-      <div className="relative w-full max-w-2xl mx-4">
+      <div className="relative w-full max-w-xl mx-4">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           <button
             onClick={onClose}
@@ -63,10 +61,10 @@ export default function EditUserModal({ user = {}, isOpen, onClose }) {
           </button>
 
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-3 text-white text-center">
-            <h1 className="text-3xl font-bold">Edit User</h1>
+            <h1 className="text-2xl font-bold">Edit User</h1>
           </div>
-
-          <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          {/* Edit User Form */}
+          <form onSubmit={handleSubmit} className="p-4 space-y-3">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Name
@@ -84,10 +82,28 @@ export default function EditUserModal({ user = {}, isOpen, onClose }) {
                 />
               </div>
             </div>
-
+            {/* User Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Email
+                Username
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+            </div>
+            {/* Email Address */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Email Address
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
@@ -102,7 +118,7 @@ export default function EditUserModal({ user = {}, isOpen, onClose }) {
                 />
               </div>
             </div>
-
+            {/* Phone */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Phone
@@ -116,24 +132,6 @@ export default function EditUserModal({ user = {}, isOpen, onClose }) {
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
                   placeholder="Enter phone number"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Address
-              </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
-                  placeholder="Enter address"
                   required
                 />
               </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUsers } from "../slices/userSlice";
 import { Link } from "react-router-dom";
@@ -10,11 +10,11 @@ const Home = () => {
   const [userDetail, setUserDetails] = useState({});
   const [selectedUser, setSelectedUser] = useState(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { user: users, status } = useSelector((state) => state.user);
+  const { user: users, status } = useSelector((state) => state.user); // user array
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getUsers()); // get Users data
   }, [dispatch]);
 
   const handleDeleteUser = (id) => {
@@ -25,19 +25,19 @@ const Home = () => {
     <div className="min-h-screen w-full bg-gray-50 p-3 sm:p-6 lg:p-10">
       {/* Header */}
       <div className="flex flex-row justify-between items-center gap-4 bg-white p-4 rounded-xl shadow">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 ml-8">
           All Users
         </h1>
 
         <Link
           to="/createUser"
-          className="rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-700 transition"
+          className="rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-700 transition mr-8"
         >
           Add User
         </Link>
       </div>
 
-      {/* Table + Mobile Cards */}
+      {/* Table Structure */}
       <div className="mt-6 mx-5 bg-white rounded-xl shadow border overflow-hidden">
         {/* DESKTOP TABLE */}
         <div className="hidden md:block">
@@ -66,12 +66,11 @@ const Home = () => {
               {/* Loading */}
               {status === "pending" && (
                 <tr>
-                  <td
-                    colSpan="4"
-                    className="py-10 text-center text-indigo-600 font-medium"
-                  >
-                    {/* <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div> */}
-                    Loading users...
+                  <td colSpan="5" className="py-10">
+                    <div className="flex flex-col items-center justify-center gap-3 text-indigo-600 font-medium">
+                      <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                      <span>Loading users...</span>
+                    </div>
                   </td>
                 </tr>
               )}
@@ -80,7 +79,7 @@ const Home = () => {
               {status === "failed" && (
                 <tr>
                   <td
-                    colSpan="4"
+                    colSpan="5"
                     className="py-10 text-center text-red-600 font-medium"
                   >
                     Failed to load users.
@@ -123,14 +122,14 @@ const Home = () => {
                           setUserDetails(user);
                           setIsOpen(true);
                         }}
-                        className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 font-medium py-2.5 px-4 rounded-lg border border-gray-300 transition-colors duration-150"
+                        className="flex items-center justify-center gap-2 bg-white hover:bg-blue-700 text-gray-700 hover:text-gray-50 font-medium py-2.5 px-4 rounded-lg border border-gray-300 transition-colors duration-150"
                       >
                         <Edit2 size={16} />
                         <span>Edit</span>
                       </button>
                       <button
                         onClick={() => handleDeleteUser(user.id)}
-                        className="border border-gray-500 text-gray-700 px-2 py-1 rounded-lg hover:bg-gray-800 hover:text-white transition"
+                        className="border border-gray-500 text-gray-700 px-2 py-1 rounded-lg hover:bg-red-50 text-red-600 transition"
                       >
                         <Trash2 size={18} />
                       </button>
@@ -210,7 +209,7 @@ const Home = () => {
                       setUserDetails(user);
                       setIsOpen(true);
                     }}
-                    className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 font-medium py-2.5 px-4 rounded-lg border border-gray-300 transition-colors duration-150"
+                    className="flex items-center justify-center gap-2 bg-white hover:bg-blue-700 text-gray-700 hover:text-gray-50 font-medium py-2.5 px-4 rounded-lg border border-gray-300 transition-colors duration-150"
                   >
                     <Edit2 size={16} />
                     <span>Edit</span>

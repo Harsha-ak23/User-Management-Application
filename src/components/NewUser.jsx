@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { createNewUser } from "../slices/userSlice";
 
 const NewUser = () => {
+  //form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,7 +24,7 @@ const NewUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createNewUser(formData));
+    dispatch(createNewUser(formData)); // creating user
     alert("Form submitted successfully!");
 
     setFormData({
@@ -35,25 +36,23 @@ const NewUser = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 inset-0 z-50 bg-opacity-70 backdrop-blur-sm">
+      <div className="w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-3 text-white">
           <Link
             to="/"
-            className="flex items-center gap-2 text-white hover:text-purple-100 transition-colors mb-1"
+            className="flex items-center gap-2 text-white hover:text-purple-100 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             <span className="font-medium">Back</span>
           </Link>
 
-          <h1 className="text-3xl font-bold text-center">
-            Create Your Account
-          </h1>
+          <h1 className="text-2xl font-bold text-center">Add New User</h1>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 space-y-2">
           {/* Name */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -65,6 +64,24 @@ const NewUser = () => {
                 type="text"
                 name="name"
                 value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
+                placeholder="Enter your name"
+              />
+            </div>
+          </div>
+          {/* Username */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Username
+            </label>
+            <div className="relative">
+              <User className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
                 required
                 className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
@@ -107,25 +124,6 @@ const NewUser = () => {
                 required
                 className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
                 placeholder="+91 XXXXX XXXXX"
-              />
-            </div>
-          </div>
-
-          {/* Address */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Address
-            </label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-                className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 outline-none"
-                placeholder="123 Main Street"
               />
             </div>
           </div>
